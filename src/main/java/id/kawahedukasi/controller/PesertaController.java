@@ -1,7 +1,10 @@
 package id.kawahedukasi.controller;
 
+import id.kawahedukasi.model.ExportService;
 import id.kawahedukasi.model.Peserta;
+import net.sf.jasperreports.engine.JRException;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,9 +17,17 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PesertaController {
 
+    @Inject
+    ExportService exportService;
     @GET
     public Response get(@PathParam("nama") String nama){
         return Response.status(Response.Status.OK).entity(Peserta.findAll().list()).build();
+    }
+    @GET
+    @Path("/export")
+    @Produces("application/pdf")
+    public Response export() throws JRException {
+        return exportService.exportPeserta();
     }
 
     @POST

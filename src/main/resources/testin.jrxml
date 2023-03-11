@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testin" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ced95029-b569-4027-895c-af2843a4e088">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="testing_kawahED"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -13,28 +11,13 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<queryString language="SQL">
-		<![CDATA[Select * From peserta]]>
-	</queryString>
 	<field name="id" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="id"/>
-		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="peserta"/>
 	</field>
 	<field name="email" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="email"/>
-		<property name="com.jaspersoft.studio.field.label" value="email"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="peserta"/>
 	</field>
 	<field name="nama" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nama"/>
-		<property name="com.jaspersoft.studio.field.label" value="nama"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="peserta"/>
 	</field>
-	<field name="phone_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="phone_number"/>
-		<property name="com.jaspersoft.studio.field.label" value="phone_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="peserta"/>
+	<field name="phoneNum" class="java.lang.String">
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -103,7 +86,7 @@
 				<reportElement style="Column header" x="414" y="0" width="138" height="15" forecolor="#736343" uuid="79afe840-c464-48fa-8e91-e6a0d9fe5d02">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09e7867b-34d8-43ba-af7b-64aab5a109d8"/>
 				</reportElement>
-				<text><![CDATA[phone_number]]></text>
+				<text><![CDATA[phoneNum]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -133,7 +116,7 @@
 					<reportElement style="Detail" x="414" y="0" width="138" height="15" uuid="15caa306-5192-4cbc-840c-3490aced0292">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09e7867b-34d8-43ba-af7b-64aab5a109d8"/>
 					</reportElement>
-					<textFieldExpression><![CDATA[$F{phone_number}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{phoneNum}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
