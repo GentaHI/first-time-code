@@ -1,14 +1,19 @@
 package id.kawahedukasi.controller;
 
+import com.opencsv.exceptions.CsvValidationException;
+import id.kawahedukasi.DTO.ImportExcelDTO;
 import id.kawahedukasi.model.ExportService;
+import id.kawahedukasi.model.ImportService;
 import id.kawahedukasi.model.Peserta;
 import net.sf.jasperreports.engine.JRException;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,15 +24,32 @@ public class PesertaController {
 
     @Inject
     ExportService exportService;
+
+    @Inject
+    ImportService importService;
     @GET
     public Response get(@PathParam("nama") String nama){
         return Response.status(Response.Status.OK).entity(Peserta.findAll().list()).build();
     }
     @GET
-    @Path("/export")
+    @Path("/export/pdf")
     @Produces("application/pdf")
-    public Response export() throws JRException {
-        return exportService.exportPeserta();
+    public Response exportPDF() throws JRException {
+        return exportService.exportPDF();
+    }
+
+    @GET
+    @Path("/export/excel")
+    @Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public Response exportExcel() throws IOException {
+        return exportService.exportExcel();
+    }
+
+    @GET
+    @Path("/export/csv")
+    @Produces("text/csv")
+    public Response exportCSV() throws  IOException {
+        return exportService.exportCSV();
     }
 
     @POST
@@ -42,6 +64,21 @@ public class PesertaController {
         peserta.persist();
         return Response.status(Response.Status.CREATED).entity(new HashMap<>()).build();
     }
+
+    @POST
+    @Path("/import/excel")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response importExcel(@MultipartForm ImportExcelDTO file) throws IOException {
+        return importService.ImportExcel(file);
+    }
+
+    @POST
+    @Path("/import/csv")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response importCSV(@MultipartForm ImportExcelDTO file) throws IOException, CsvValidationException {
+        return importService.ImportCSV(file);
+    }
+
     @PUT
     @Path("/{id}")
     @Transactional
