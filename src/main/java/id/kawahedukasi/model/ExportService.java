@@ -9,10 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Response;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +39,15 @@ public class ExportService {
     }
     public Response exportExcel() throws IOException {
 
+        ByteArrayOutputStream outputStream = resultOutputExcel();
+
+        return Response.ok()
+                .type("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                .header("Content-Dispotition","attachment; filename=\"peserta_list_excel.xlsx\"")
+                .entity(outputStream.toByteArray()).build();
+    }
+
+    public ByteArrayOutputStream resultOutputExcel () throws IOException {
         List<Peserta> pesertaList = Peserta.listAll();
 
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -63,11 +69,7 @@ public class ExportService {
         }
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
-
-        return Response.ok()
-                .type("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                .header("Content-Dispotition","attachment; filename=\"peserta_list_excel.xlsx\"")
-                .entity(outputStream.toByteArray()).build();
+        return outputStream;
     }
     public Response exportCSV() throws IOException {
 

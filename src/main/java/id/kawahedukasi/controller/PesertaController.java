@@ -27,6 +27,7 @@ public class PesertaController {
 
     @Inject
     ImportService importService;
+
     @GET
     public Response get(@PathParam("nama") String nama){
         return Response.status(Response.Status.OK).entity(Peserta.findAll().list()).build();
